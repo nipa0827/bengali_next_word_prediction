@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    {% load static %}
+    {% load staticfiles %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -16,6 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
 
+
 </head>
 
 <body>
@@ -27,8 +28,7 @@
         <div class="sidebar-heading">Bengali Text Editor</div>
         <div class="list-group list-group-flush">
             <a href="{% url 'new' %}" class="list-group-item list-group-item-action bg-light">New</a>
-            <a href="{% url 'open' %}" class="list-group-item list-group-item-action bg-light">Open</a>
-            <a href="{% url 'download' %}" class="list-group-item list-group-item-action bg-light">Download </a>
+            <a href="{% url 'download' %}" class="list-group-item list-group-item-action bg-light, download">Download</a>
             <a href="{% url 'about' %}" class="list-group-item list-group-item-action bg-light">About</a>
         </div>
     </div>
@@ -49,9 +49,20 @@
         </nav>
 
         <div class="container-fluid">
-            {% block content %}
+            <div class="form-group">
+                <div class="box" id="text" contenteditable="true">
+                    <p>Write your document here</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" id="next_word">Next Word</button>
+                <span id="loader" hidden>hello from span</span>
+            </div>
 
-            {% endblock %}
+            <div class="result" hidden>
+
+            </div>
+
 
         </div>
         <!-- /#page-content-wrapper -->
@@ -69,8 +80,37 @@
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+	$(document).ready(function(){
+        $("#next_word").click(function(){
+            $text = $("#text").html();
+            $.ajax({
+                type: "POST",
+                url: "{% url 'all_text' %}",
+                data: {"text": $text},
+                success: function(result){
+                    $('#text').html(result);
+                },
+                // complete: function(){
+                // }
+            });
+        });
 
+       $('a.intercept').on('click', function(event) {
+        event.preventDefault();
 
+        $.ajax({
+                type: "POST",
+                url: "{% url 'download' %}",
+                data: {"text": $text},
+                success: function(result){
+                   alert(""Success);
+                },
+                // complete: function(){
+                // }
+            });
+    });
+
+    });
 
 
 
