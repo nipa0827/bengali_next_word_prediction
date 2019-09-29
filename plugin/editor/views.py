@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
+from .model_prediction import max_sequence_len, model, generate_text
 
 from .forms import TextForm
 
@@ -96,17 +97,19 @@ def openFile(request):
 
 @csrf_exempt
 def all_text(request):
+
     if request.method == 'POST':
         data = (request.POST['text'])
+        resultValue = generate_text(data, 1, max_sequence_len, model)
+        res = data + " " + resultValue[0]
+    return HttpResponse(res)
 
-        data = data + " concated"
-    return HttpResponse(data)
 
 
 def new(request):
     return render(request, 'index.html')
 
-
+@csrf_exempt
 def download(request):
     if request.method == 'POST':
         data = (request.POST['text'])

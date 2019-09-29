@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from editor import views
+from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^$', views.home, name='home'),
     path('home/', views.home, name='home'),
     path('new/', views.new, name='new'),
     path('download/', views.download, name='download'),

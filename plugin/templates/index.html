@@ -15,7 +15,11 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
-
+    <style>
+        [contentEditable=true]:empty:not(:focus):before {
+            content: attr(data-text)
+        }
+    </style>
 
 </head>
 
@@ -25,11 +29,13 @@
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">Bengali Text Editor</div>
+        <div class="sidebar-heading">বাংলা লিখনি ওয়েবসাইট</div>
         <div class="list-group list-group-flush">
-            <a href="{% url 'new' %}" class="list-group-item list-group-item-action bg-light">New</a>
-            <a href="{% url 'download' %}" class="list-group-item list-group-item-action bg-light, download">Download</a>
-            <a href="{% url 'about' %}" class="list-group-item list-group-item-action bg-light">About</a>
+            <a href="{% url 'new' %}" class="list-group-item list-group-item-action bg-light">নতুন ফাইল</a>
+            <a href="{% url 'download' %}"
+               class="list-group-item list-group-item-action bg-light, download">ডাউনলোড</a>
+            <a href="{% url 'about' %}" class="list-group-item list-group-item-action bg-light">ওয়েবসাইট সম্পর্কে
+                জানুন</a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -38,7 +44,7 @@
     <div id="page-content-wrapper">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <button class="btn btn-primary" id="menu-toggle">Menu</button>
+            <button class="btn btn-primary" id="menu-toggle">মেন্যু</button>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,12 +56,12 @@
 
         <div class="container-fluid">
             <div class="form-group">
-                <div class="box" id="text" contenteditable="true">
-                    <p>Write your document here</p>
+                <div class="box" id="text" contentEditable=true data-text="Enter text here">
+                    <p data-placeholder="এখানে লিখুন..."></p>
                 </div>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary" id="next_word">Next Word</button>
+                <button class="btn btn-primary" id="next_word">পরবর্তী শব্দ</button>
                 <span id="loader" hidden>hello from span</span>
             </div>
 
@@ -69,50 +75,57 @@
 
     </div>
     <!-- /#wrapper -->
-
+    <div class="sidebar-right">
+        <div class="sidebar">
+            <div class="list-group list-group-flush">
+                <a href="{% url 'new' %}" class="list-group-item list-group-item-action bg-light">New</a>
+                <a href="{% url 'download' %}"
+                   class="list-group-item list-group-item-action bg-light, download">Download</a>
+                <a href="{% url 'about' %}" class="list-group-item list-group-item-action bg-light">About</a>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Menu Toggle Script -->
     <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-	$(document).ready(function(){
-        $("#next_word").click(function(){
-            $text = $("#text").html();
-            $.ajax({
-                type: "POST",
-                url: "{% url 'all_text' %}",
-                data: {"text": $text},
-                success: function(result){
-                    $('#text').html(result);
-                },
-                // complete: function(){
-                // }
-            });
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
         });
-
-       $('a.intercept').on('click', function(event) {
-        event.preventDefault();
-
-        $.ajax({
-                type: "POST",
-                url: "{% url 'download' %}",
-                data: {"text": $text},
-                success: function(result){
-                   alert(""Success);
-                },
-                // complete: function(){
-                // }
+        $(document).ready(function () {
+            $("#next_word").click(function () {
+                $text = $("#text").html();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'all_text' %}",
+                    data: {"text": $text},
+                    success: function (result) {
+                        $('#text').html(result);
+                    },
+                    // complete: function(){
+                    // }
+                });
             });
-    });
 
-    });
+            $('a.intercept').on('click', function (event) {
+                event.preventDefault();
 
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'download' %}",
+                    data: {"text": $text},
+                    success: function (result) {
+                        alert("Success");
+                    },
+                    // complete: function(){
+                    // }
+                });
+            });
 
+        });
 
     </script>
 

@@ -47,3 +47,6 @@ body {
     margin-left: -15rem;
   }
 }
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text)
+}
