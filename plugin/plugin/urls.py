@@ -26,6 +26,10 @@ urlpatterns = [
     path('download/', views.download, name='download'),
     path('about/', views.about, name='about'),
     path('all_text/', views.all_text, name='all_text'),
+    path('first_select/', views.first_select, name='first_select'),
+    path('second_select/', views.second_select, name='second_select'),
+    path('third_select/', views.third_select, name='third_select'),
+    path('fourth_select/', views.fourth_select, name='fourth_select'),
+    path('fifth_select/', views.fifth_select, name='fifth_select'),
     path('showText/', views.showText, name='showText'),
 ]
-

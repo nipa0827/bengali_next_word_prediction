@@ -57,7 +57,7 @@
         <div class="container-fluid">
             <div class="form-group">
                 <div class="box" id="text" contentEditable=true data-text="Enter text here">
-                    <p data-placeholder="এখানে লিখুন..."></p>
+                    <p> write</p>
                 </div>
             </div>
             <div class="form-group">
@@ -77,12 +77,37 @@
     <!-- /#wrapper -->
     <div class="sidebar-right">
         <div class="sidebar">
-            <div class="list-group list-group-flush">
-                <a href="{% url 'new' %}" class="list-group-item list-group-item-action bg-light">New</a>
-                <a href="{% url 'download' %}"
-                   class="list-group-item list-group-item-action bg-light, download">Download</a>
-                <a href="{% url 'about' %}" class="list-group-item list-group-item-action bg-light">About</a>
+            <div class="sidebar-heading"
+                 style="background: #f8f9fa; padding: 4px; border-left-color:black ; border-bottom-width:2px">&nbsp;
+                &nbsp; সম্ভাব্য পরবর্তী শব্দ&nbsp; &nbsp;
             </div>
+            <div class="list-group list-group-flush">
+                <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
+                        id="first">
+                    {{first}}
+                </button>
+                <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
+                        , id="second">
+                    {{second}}
+                </button>
+                <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
+                        , id="third">
+                    {{third}}
+                </button>
+                <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
+                        id="fourth">
+                    {{fourth}}
+                </button>
+                <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
+                        id="fifth">
+                    {{fifth}}
+                </button>
+            </div>
+
+            <p> {% for item in first %}
+                {{ item }}
+                {% endfor %}
+            </p>
         </div>
     </div>
     <!-- Bootstrap core JavaScript -->
@@ -101,6 +126,73 @@
                 $.ajax({
                     type: "POST",
                     url: "{% url 'all_text' %}",
+                    data: {"text": $text},
+                    success: function (result) {
+                        alert("Ok");
+                    },
+                    // complete: function(){
+                    // }
+                });
+            });
+
+            $("#first").click(function () {
+                $text = $("#text").html();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'first_select' %}",
+                    data: {"text": $text},
+                    success: function (result) {
+                        $('#text').html(result);
+                    },
+                    // complete: function(){
+                    // }
+                });
+            });
+
+            $("#second").click(function () {
+                $text = $("#text").html();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'second_select' %}",
+                    data: {"text": $text},
+                    success: function (result) {
+                        $('#text').html(result);
+                    },
+                    // complete: function(){
+                    // }
+                });
+            });
+            $("#third").click(function () {
+                $text = $("#text").html();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'third_select' %}",
+                    data: {"text": $text},
+                    success: function (result) {
+                        $('#text').html(result);
+                    },
+                    // complete: function(){
+                    // }
+                });
+            });
+            $("#fourth").click(function () {
+                $text = $("#text").html();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'fourth_select' %}",
+                    data: {"text": $text},
+                    success: function (result) {
+                        $('#text').html(result);
+                    },
+                    // complete: function(){
+                    // }
+                });
+            });
+            $("#fifth").click(function () {
+                $text = $("#text").html();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'fifth_select' %}",
                     data: {"text": $text},
                     success: function (result) {
                         $('#text').html(result);

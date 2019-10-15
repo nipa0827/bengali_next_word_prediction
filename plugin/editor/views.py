@@ -2,11 +2,11 @@ import csv
 import os
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from .model_prediction import max_sequence_len, model, generate_text
-
+from django.shortcuts import render_to_response
 from .forms import TextForm
 
 # from .forms import DocumentForm
@@ -94,20 +94,81 @@ def openFile(request):
 
 '''
 
+global resultValue
 
 @csrf_exempt
 def all_text(request):
-
     if request.method == 'POST':
         data = (request.POST['text'])
         resultValue = generate_text(data, 1, max_sequence_len, model)
         res = data + " " + resultValue[0]
+        first = resultValue[0]
+        second = resultValue[1]
+        third = resultValue[2]
+        fourth = resultValue[3]
+        fifth = resultValue[4]
+
+    return render(request, 'index.html', {'first': first, 'second': second,
+                                                'third': third, 'fourth': fourth,
+                                                'fifth': fifth, 'res':res})
+
+@csrf_exempt
+def first_select(request):
+    if request.method == 'POST':
+        data = (request.POST['text'])
+        resultValue = generate_text(data, 1, max_sequence_len, model)
+        res = data + " " + resultValue[0]
+
+    return HttpResponse(res)
+
+
+@csrf_exempt
+def second_select(request):
+    if request.method == 'POST':
+        data = (request.POST['text'])
+        resultValue = generate_text(data, 1, max_sequence_len, model)
+        res = data + " " + resultValue[1]
+
+    return HttpResponse(res)
+
+
+def third_select(request):
+    if request.method == 'POST':
+        data = (request.POST['text'])
+        resultValue = generate_text(data, 1, max_sequence_len, model)
+        data = data + " " + resultValue[2]
+
+    return HttpResponse(data)
+
+@csrf_exempt
+def fourth_select(request):
+    if request.method == 'POST':
+        data = (request.POST['text'])
+        resultValue = generate_text(data, 1, max_sequence_len, model)
+        res = data + " " + resultValue[3]
+
+    return HttpResponse(res)
+
+
+@csrf_exempt
+def fifth_select(request):
+    if request.method == 'POST':
+        data = (request.POST['text'])
+        resultValue = generate_text(data, 1, max_sequence_len, model)
+        res = data + " " + resultValue[4]
+
     return HttpResponse(res)
 
 
 
+def suggestion(request):
+    if request.method == 'POST':
+        data = (request.POST['text'])
+        resultValue = generate_text(data, 1, max_sequence_len, model)
+
 def new(request):
     return render(request, 'index.html')
+
 
 @csrf_exempt
 def download(request):
