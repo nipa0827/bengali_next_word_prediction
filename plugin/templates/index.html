@@ -15,11 +15,6 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
-    <style>
-        [contentEditable=true]:empty:not(:focus):before {
-            content: attr(data-text)
-        }
-    </style>
 
 </head>
 
@@ -56,9 +51,7 @@
 
         <div class="container-fluid">
             <div class="form-group">
-                <div class="box" id="text" contentEditable=true data-text="Enter text here">
-                    <p> write</p>
-                </div>
+                <div id="text" contenteditable="true" data-placeholder="in case this div is empty"></div>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary" id="next_word">পরবর্তী শব্দ</button>
@@ -84,30 +77,25 @@
             <div class="list-group list-group-flush">
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         id="first">
-                    {{first}}
+                    1. {{first}}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         , id="second">
-                    {{second}}
+                    2. {{second}}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         , id="third">
-                    {{third}}
+                    3. {{third}}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         id="fourth">
-                    {{fourth}}
+                    4. {{fourth}}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         id="fifth">
-                    {{fifth}}
+                    5. {{fifth}}
                 </button>
             </div>
-
-            <p> {% for item in first %}
-                {{ item }}
-                {% endfor %}
-            </p>
         </div>
     </div>
     <!-- Bootstrap core JavaScript -->
@@ -128,7 +116,11 @@
                     url: "{% url 'all_text' %}",
                     data: {"text": $text},
                     success: function (result) {
-                        alert("Ok");
+                        $('#first').html(result['first']);
+                        $('#second').html(result['second']);
+                        $('#third').html(result['third']);
+                        $('#fourth').html(result['fourth']);
+                        $('#fifth').html(result['fifth']);
                     },
                     // complete: function(){
                     // }
@@ -142,7 +134,12 @@
                     url: "{% url 'first_select' %}",
                     data: {"text": $text},
                     success: function (result) {
-                        $('#text').html(result);
+                        $('#first').html(result['first']);
+                        $('#second').html(result['second']);
+                        $('#third').html(result['third']);
+                        $('#fourth').html(result['fourth']);
+                        $('#fifth').html(result['fifth']);
+                        $('#text').html(result['res']);
                     },
                     // complete: function(){
                     // }
@@ -156,7 +153,12 @@
                     url: "{% url 'second_select' %}",
                     data: {"text": $text},
                     success: function (result) {
-                        $('#text').html(result);
+                        $('#first').html(result['first']);
+                        $('#second').html(result['second']);
+                        $('#third').html(result['third']);
+                        $('#fourth').html(result['fourth']);
+                        $('#fifth').html(result['fifth']);
+                        $('#text').html(result['res']);
                     },
                     // complete: function(){
                     // }
@@ -169,7 +171,12 @@
                     url: "{% url 'third_select' %}",
                     data: {"text": $text},
                     success: function (result) {
-                        $('#text').html(result);
+                        $('#first').html(result['first']);
+                        $('#second').html(result['second']);
+                        $('#third').html(result['third']);
+                        $('#fourth').html(result['fourth']);
+                        $('#fifth').html(result['fifth']);
+                        $('#text').html(result['res']);
                     },
                     // complete: function(){
                     // }
@@ -182,7 +189,12 @@
                     url: "{% url 'fourth_select' %}",
                     data: {"text": $text},
                     success: function (result) {
-                        $('#text').html(result);
+                        $('#first').html(result['first']);
+                        $('#second').html(result['second']);
+                        $('#third').html(result['third']);
+                        $('#fourth').html(result['fourth']);
+                        $('#fifth').html(result['fifth']);
+                        $('#text').html(result['res']);
                     },
                     // complete: function(){
                     // }
@@ -195,7 +207,12 @@
                     url: "{% url 'fifth_select' %}",
                     data: {"text": $text},
                     success: function (result) {
-                        $('#text').html(result);
+                        $('#first').html(result['first']);
+                        $('#second').html(result['second']);
+                        $('#third').html(result['third']);
+                        $('#fourth').html(result['fourth']);
+                        $('#fifth').html(result['fifth']);
+                        $('#text').html(result['res']);
                     },
                     // complete: function(){
                     // }
@@ -204,7 +221,6 @@
 
             $('a.intercept').on('click', function (event) {
                 event.preventDefault();
-
                 $.ajax({
                     type: "POST",
                     url: "{% url 'download' %}",

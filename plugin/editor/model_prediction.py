@@ -17,7 +17,7 @@ from time import time
 from keras.models import load_model
 import io
 
-with io.open("D:\SPL\plugin\editor\word.txt",'r',encoding = 'utf-8', errors='ignore') as f:
+with io.open("C:\\Users\\nipa1\\Desktop\\SPL\\plugin\\editor\\word.txt",'r',encoding = 'utf-8', errors='ignore') as f:
   data = (f.read())	
 
 tokenizer = Tokenizer()
@@ -110,6 +110,6 @@ def generate_text(seed_text, next_words, max_sequence_len, model):
     return wordList
 
 predictors, label, max_sequence_len, total_words = dataset_preparation(data)
-model = load_model("D:\SPL\plugin\editor\M2.h5")
+model = load_model("C:\\Users\\nipa1\\Desktop\\SPL\\plugin\\editor\\M2.h5")
 print(generate_text("বাংলাদেশ সরকারের হিসাব ।", 1,  max_sequence_len, model))
  

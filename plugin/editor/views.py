@@ -8,7 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from .model_prediction import max_sequence_len, model, generate_text
 from django.shortcuts import render_to_response
 from .forms import TextForm
-
+from django.http import JsonResponse
+import json
 # from .forms import DocumentForm
 # from .models import Document
 
@@ -96,8 +97,15 @@ def openFile(request):
 
 global resultValue
 
+
 @csrf_exempt
 def all_text(request):
+    first = ""
+    second = ""
+    third = ""
+    fourth = ""
+    fifth = ""
+    res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
         resultValue = generate_text(data, 1, max_sequence_len, model)
@@ -108,57 +116,155 @@ def all_text(request):
         fourth = resultValue[3]
         fifth = resultValue[4]
 
-    return render(request, 'index.html', {'first': first, 'second': second,
-                                                'third': third, 'fourth': fourth,
-                                                'fifth': fifth, 'res':res})
+    data = {'first': first, 'second': second,
+            'third': third, 'fourth': fourth,
+            'fifth': fifth}
+    return JsonResponse(data)
+
 
 @csrf_exempt
 def first_select(request):
+    first=""
+    second=""
+    third=""
+    fourth=""
+    fifth=""
+    res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
         resultValue = generate_text(data, 1, max_sequence_len, model)
         res = data + " " + resultValue[0]
+        #data = (request.POST['text'])
+        resultValue = generate_text(res, 1, max_sequence_len, model)
+        if len(resultValue)<5:
+            for i in range(len(resultValue),5):
+                resultValue[i] = ""
+        first = resultValue[0]
+        second = resultValue[1]
+        third = resultValue[2]
+        fourth = resultValue[3]
+        fifth = resultValue[4]
 
-    return HttpResponse(res)
+    data = {'first': first, 'second': second,
+            'third': third, 'fourth': fourth,
+            'fifth': fifth, 'res':res}
+    return JsonResponse(data)
 
 
 @csrf_exempt
 def second_select(request):
+    first = ""
+    second = ""
+    third = ""
+    fourth = ""
+    fifth = ""
+    res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
         resultValue = generate_text(data, 1, max_sequence_len, model)
         res = data + " " + resultValue[1]
+        #data = (request.POST['text'])
+        resultValue = generate_text(res, 1, max_sequence_len, model)
+        if len(resultValue)<5:
+            for i in range(len(resultValue),5):
+                resultValue[i] = ""
+        first = resultValue[0]
+        second = resultValue[1]
+        third = resultValue[2]
+        fourth = resultValue[3]
+        fifth = resultValue[4]
 
-    return HttpResponse(res)
+    data = {'first': first, 'second': second,
+            'third': third, 'fourth': fourth,
+            'fifth': fifth, 'res':res}
+    return JsonResponse(data)
 
-
+@csrf_exempt
 def third_select(request):
+    first = ""
+    second = ""
+    third = ""
+    fourth = ""
+    fifth = ""
+    res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
         resultValue = generate_text(data, 1, max_sequence_len, model)
-        data = data + " " + resultValue[2]
+        res = data + " " + resultValue[2]
+        #data = (request.POST['text'])
+        resultValue = generate_text(res, 1, max_sequence_len, model)
+        if len(resultValue)<5:
+            for i in range(len(resultValue),5):
+                resultValue[i] = ""
+        first = resultValue[0]
+        second = resultValue[1]
+        third = resultValue[2]
+        fourth = resultValue[3]
+        fifth = resultValue[4]
 
-    return HttpResponse(data)
+    data = {'first': first, 'second': second,
+            'third': third, 'fourth': fourth,
+            'fifth': fifth, 'res':res}
+    return JsonResponse(data)
+
 
 @csrf_exempt
 def fourth_select(request):
+    first = ""
+    second = ""
+    third = ""
+    fourth = ""
+    fifth = ""
+    res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
         resultValue = generate_text(data, 1, max_sequence_len, model)
         res = data + " " + resultValue[3]
+        #data = (request.POST['text'])
+        resultValue = generate_text(res, 1, max_sequence_len, model)
 
-    return HttpResponse(res)
+        if len(resultValue)<5:
+            for i in range(len(resultValue),5):
+                resultValue[i] = ""
+        first = resultValue[0]
+        second = resultValue[1]
+        third = resultValue[2]
+        fourth = resultValue[3]
+        fifth = resultValue[4]
+
+    data = {'first': first, 'second': second,
+            'third': third, 'fourth': fourth,
+            'fifth': fifth, 'res':res}
+    return JsonResponse(data)
 
 
 @csrf_exempt
 def fifth_select(request):
+    first = ""
+    second = ""
+    third = ""
+    fourth = ""
+    fifth = ""
+    res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
         resultValue = generate_text(data, 1, max_sequence_len, model)
         res = data + " " + resultValue[4]
+        #data = (request.POST['text'])
+        resultValue = generate_text(res, 1, max_sequence_len, model)
+        if len(resultValue)<5:
+            for i in range(len(resultValue),5):
+                resultValue[i] = ""
+        first = resultValue[0]
+        second = resultValue[1]
+        third = resultValue[2]
+        fourth = resultValue[3]
+        fifth = resultValue[4]
 
-    return HttpResponse(res)
-
+    data = {'first': first, 'second': second,
+            'third': third, 'fourth': fourth,
+            'fifth': fifth, 'res':res}
+    return JsonResponse(data)
 
 
 def suggestion(request):
@@ -166,20 +272,20 @@ def suggestion(request):
         data = (request.POST['text'])
         resultValue = generate_text(data, 1, max_sequence_len, model)
 
+
 def new(request):
     return render(request, 'index.html')
 
 
 @csrf_exempt
 def download(request):
+    print(request)
     if request.method == 'POST':
         data = (request.POST['text'])
         response = HttpResponse(data)
         response['Content-Type'] = 'text/plain'
         response['Content-Disposition'] = 'attachment; filename=DownloadedText.doc'
         return response
-    else:
-        return HttpResponse("Error occured")
 
 
 def showText(request):
