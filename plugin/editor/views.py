@@ -108,7 +108,7 @@ def all_text(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
-        resultValue = generate_text(data, 1, max_sequence_len, model)
+        resultValue = generate_text(data)
         res = data + " " + resultValue[0]
         first = resultValue[0]
         second = resultValue[1]
@@ -132,10 +132,10 @@ def first_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
-        resultValue = generate_text(data, 1, max_sequence_len, model)
+        resultValue = generate_text(data)
         res = data + " " + resultValue[0]
         #data = (request.POST['text'])
-        resultValue = generate_text(res, 1, max_sequence_len, model)
+        resultValue = generate_text(res)
         if len(resultValue)<5:
             for i in range(len(resultValue),5):
                 resultValue[i] = ""
@@ -161,10 +161,10 @@ def second_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
-        resultValue = generate_text(data, 1, max_sequence_len, model)
+        resultValue = generate_text(data)
         res = data + " " + resultValue[1]
         #data = (request.POST['text'])
-        resultValue = generate_text(res, 1, max_sequence_len, model)
+        resultValue = generate_text(res)
         if len(resultValue)<5:
             for i in range(len(resultValue),5):
                 resultValue[i] = ""
@@ -189,10 +189,10 @@ def third_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
-        resultValue = generate_text(data, 1, max_sequence_len, model)
+        resultValue = generate_text(data)
         res = data + " " + resultValue[2]
         #data = (request.POST['text'])
-        resultValue = generate_text(res, 1, max_sequence_len, model)
+        resultValue = generate_text(res)
         if len(resultValue)<5:
             for i in range(len(resultValue),5):
                 resultValue[i] = ""
@@ -218,10 +218,10 @@ def fourth_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
-        resultValue = generate_text(data, 1, max_sequence_len, model)
+        resultValue = generate_text(data)
         res = data + " " + resultValue[3]
         #data = (request.POST['text'])
-        resultValue = generate_text(res, 1, max_sequence_len, model)
+        resultValue = generate_text(res)
 
         if len(resultValue)<5:
             for i in range(len(resultValue),5):
@@ -248,10 +248,10 @@ def fifth_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
-        resultValue = generate_text(data, 1, max_sequence_len, model)
+        resultValue = generate_text(data)
         res = data + " " + resultValue[4]
         #data = (request.POST['text'])
-        resultValue = generate_text(res, 1, max_sequence_len, model)
+        resultValue = generate_text(res)
         if len(resultValue)<5:
             for i in range(len(resultValue),5):
                 resultValue[i] = ""
@@ -270,7 +270,7 @@ def fifth_select(request):
 def suggestion(request):
     if request.method == 'POST':
         data = (request.POST['text'])
-        resultValue = generate_text(data, 1, max_sequence_len, model)
+        resultValue = generate_text(data)
 
 
 def new(request):

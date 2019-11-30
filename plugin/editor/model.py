@@ -67,7 +67,7 @@ def createLabel(sequence, length):
     return sequence[length]
 
 
-with io.open("C:\\Users\\nipa\\Desktop\\word.txt",'r',encoding = 'utf-8') as f:
+with io.open("word.txt",'r',encoding = 'utf-8') as f:
   data = (f.read())
   
   
