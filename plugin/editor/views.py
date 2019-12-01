@@ -12,7 +12,7 @@ from django.http import JsonResponse
 import json
 # from .forms import DocumentForm
 # from .models import Document
-
+import io
 
 # Create your views here.
 from .models import Text
@@ -25,6 +25,8 @@ def home(request):
 def open(request):
     return render(request, 'open.html')
 
+
+global filedata
 
 '''
 def openFile(request):
@@ -109,13 +111,16 @@ def all_text(request):
     if request.method == 'POST':
         data = (request.POST['text'])
         resultValue = generate_text(data)
-        res = data + " " + resultValue[0]
+        res = data
+        filedata = data
         first = resultValue[0]
         second = resultValue[1]
         third = resultValue[2]
         fourth = resultValue[3]
         fifth = resultValue[4]
 
+    with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
+        f.write(data.replace("&nbsp;",''))
     data = {'first': first, 'second': second,
             'third': third, 'fourth': fourth,
             'fifth': fifth}
@@ -124,20 +129,21 @@ def all_text(request):
 
 @csrf_exempt
 def first_select(request):
-    first=""
-    second=""
-    third=""
-    fourth=""
-    fifth=""
+    first = ""
+    second = ""
+    third = ""
+    fourth = ""
+    fifth = ""
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
         resultValue = generate_text(data)
         res = data + " " + resultValue[0]
-        #data = (request.POST['text'])
+        # data = (request.POST['text'])
+        filedata = res
         resultValue = generate_text(res)
-        if len(resultValue)<5:
-            for i in range(len(resultValue),5):
+        if len(resultValue) < 5:
+            for i in range(len(resultValue), 5):
                 resultValue[i] = ""
         first = resultValue[0]
         second = resultValue[1]
@@ -145,9 +151,13 @@ def first_select(request):
         fourth = resultValue[3]
         fifth = resultValue[4]
 
+
+    with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
+        f.write(res.replace('&nbsp;', ''))
+
     data = {'first': first, 'second': second,
             'third': third, 'fourth': fourth,
-            'fifth': fifth, 'res':res}
+            'fifth': fifth, 'res': res}
     return JsonResponse(data)
 
 
@@ -163,10 +173,11 @@ def second_select(request):
         data = (request.POST['text'])
         resultValue = generate_text(data)
         res = data + " " + resultValue[1]
-        #data = (request.POST['text'])
+        filedata = res
+        # data = (request.POST['text'])
         resultValue = generate_text(res)
-        if len(resultValue)<5:
-            for i in range(len(resultValue),5):
+        if len(resultValue) < 5:
+            for i in range(len(resultValue), 5):
                 resultValue[i] = ""
         first = resultValue[0]
         second = resultValue[1]
@@ -176,8 +187,12 @@ def second_select(request):
 
     data = {'first': first, 'second': second,
             'third': third, 'fourth': fourth,
-            'fifth': fifth, 'res':res}
+            'fifth': fifth, 'res': res}
+    with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
+        f.write(res.replace("&nbsp;",''))
+
     return JsonResponse(data)
+
 
 @csrf_exempt
 def third_select(request):
@@ -191,10 +206,10 @@ def third_select(request):
         data = (request.POST['text'])
         resultValue = generate_text(data)
         res = data + " " + resultValue[2]
-        #data = (request.POST['text'])
+        # data = (request.POST['text'])
         resultValue = generate_text(res)
-        if len(resultValue)<5:
-            for i in range(len(resultValue),5):
+        if len(resultValue) < 5:
+            for i in range(len(resultValue), 5):
                 resultValue[i] = ""
         first = resultValue[0]
         second = resultValue[1]
@@ -204,8 +219,10 @@ def third_select(request):
 
     data = {'first': first, 'second': second,
             'third': third, 'fourth': fourth,
-            'fifth': fifth, 'res':res}
-    return JsonResponse(data)
+            'fifth': fifth, 'res': res}
+    with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
+        f.write(res)
+    return JsonResponse(data.replace("&nbsp;",''))
 
 
 @csrf_exempt
@@ -220,11 +237,11 @@ def fourth_select(request):
         data = (request.POST['text'])
         resultValue = generate_text(data)
         res = data + " " + resultValue[3]
-        #data = (request.POST['text'])
+        # data = (request.POST['text'])
         resultValue = generate_text(res)
 
-        if len(resultValue)<5:
-            for i in range(len(resultValue),5):
+        if len(resultValue) < 5:
+            for i in range(len(resultValue), 5):
                 resultValue[i] = ""
         first = resultValue[0]
         second = resultValue[1]
@@ -234,7 +251,11 @@ def fourth_select(request):
 
     data = {'first': first, 'second': second,
             'third': third, 'fourth': fourth,
-            'fifth': fifth, 'res':res}
+            'fifth': fifth, 'res': res}
+
+    with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
+        f.write(res.replace("&nbsp;",''))
+
     return JsonResponse(data)
 
 
@@ -250,10 +271,10 @@ def fifth_select(request):
         data = (request.POST['text'])
         resultValue = generate_text(data)
         res = data + " " + resultValue[4]
-        #data = (request.POST['text'])
+        # data = (request.POST['text'])
         resultValue = generate_text(res)
-        if len(resultValue)<5:
-            for i in range(len(resultValue),5):
+        if len(resultValue) < 5:
+            for i in range(len(resultValue), 5):
                 resultValue[i] = ""
         first = resultValue[0]
         second = resultValue[1]
@@ -263,7 +284,11 @@ def fifth_select(request):
 
     data = {'first': first, 'second': second,
             'third': third, 'fourth': fourth,
-            'fifth': fifth, 'res':res}
+            'fifth': fifth, 'res': res}
+
+    with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
+        f.write(res.replace("&nbsp;",''))
+
     return JsonResponse(data)
 
 
@@ -277,15 +302,12 @@ def new(request):
     return render(request, 'index.html')
 
 
-@csrf_exempt
 def download(request):
-    print(request)
-    if request.method == 'POST':
-        data = (request.POST['text'])
-        response = HttpResponse(data)
-        response['Content-Type'] = 'text/plain'
-        response['Content-Disposition'] = 'attachment; filename=DownloadedText.doc'
-        return response
+    with io.open("data.txt", 'r', encoding='utf-8', errors='ignore') as f:
+        file_data = f.read()
+    response = HttpResponse(file_data, content_type='application/text charset=utf-8')
+    response['Content-Disposition'] = 'attachment; filename="untitled.doc"'
+    return response
 
 
 def showText(request):

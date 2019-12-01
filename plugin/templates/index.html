@@ -27,8 +27,9 @@
         <div class="sidebar-heading">বাংলা লিখনি ওয়েবসাইট</div>
         <div class="list-group list-group-flush">
             <a href="{% url 'new' %}" class="list-group-item list-group-item-action bg-light">নতুন ফাইল</a>
-            <a href="{% url 'download' %}"
-               class="list-group-item list-group-item-action bg-light, download">ডাউনলোড</a>
+            <a href="{% url 'download' %}" class="list-group-item list-group-item-action bg-light">
+                ডাউনলোড
+            </a>
             <a href="{% url 'about' %}" class="list-group-item list-group-item-action bg-light">ওয়েবসাইট সম্পর্কে
                 জানুন</a>
         </div>
@@ -77,23 +78,23 @@
             <div class="list-group list-group-flush">
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         id="first">
-                    1. {{first}}
+                    1. {{ first }}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         , id="second">
-                    2. {{second}}
+                    2. {{ second }}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         , id="third">
-                    3. {{third}}
+                    3. {{ third }}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         id="fourth">
-                    4. {{fourth}}
+                    4. {{ fourth }}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         id="fifth">
-                    5. {{fifth}}
+                    5. {{ fifth }}
                 </button>
             </div>
         </div>
@@ -145,9 +146,9 @@
                     // }
                 });
             });
-			
-			shortcut.add("Ctrl+Shift+X",function() {
-			$text = $("#text").html();
+
+            shortcut.add("Ctrl+Shift+X", function () {
+                $text = $("#text").html();
                 $.ajax({
                     type: "POST",
                     url: "{% url 'all_text' %}",
@@ -162,7 +163,7 @@
                     // complete: function(){
                     // }
                 });
-			});
+            });
 
             $("#second").click(function () {
                 $text = $("#text").html();

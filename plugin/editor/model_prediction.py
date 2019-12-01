@@ -10,7 +10,8 @@ from time import time
 from keras.models import load_model
 import io
 
-with io.open("C:\\Users\\nipa\\Desktop\\spl\\bengali_next_word_prediction\\plugin\\editor\\word_test.txt", 'r', encoding='utf-8', errors='ignore') as f:
+with io.open("C:\\Users\\nipa\\Desktop\\spl\\bengali_next_word_prediction\\plugin\\editor\\word_test.txt", 'r',
+             encoding='utf-8', errors='ignore') as f:
     data = (f.read())
 
 tokenizer = Tokenizer()
@@ -87,8 +88,8 @@ def generate_text(seed_text, next_words=1):
         token_list = pad_sequences([token_list], maxlen=max_sequence_len - 1, padding='pre')
         predicted = model._make_predict_function()
         predicted = model.predict(token_list)
-        #np.reshape(predicted, (1, 943))
-        #print(predicted.reshape)
+        # np.reshape(predicted, (1, 943))
+        # print(predicted.reshape)
         topFiveWordIndex = predicted[0].argsort()[-5:][::-1]
         output_word = ""
         wordList = []
