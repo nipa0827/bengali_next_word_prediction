@@ -147,24 +147,6 @@
                 });
             });
 
-            shortcut.add("Ctrl+Shift+X", function () {
-                $text = $("#text").html();
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'all_text' %}",
-                    data: {"text": $text},
-                    success: function (result) {
-                        $('#first').html(result['first']);
-                        $('#second').html(result['second']);
-                        $('#third').html(result['third']);
-                        $('#fourth').html(result['fourth']);
-                        $('#fifth').html(result['fifth']);
-                    },
-                    // complete: function(){
-                    // }
-                });
-            });
-
             $("#second").click(function () {
                 $text = $("#text").html();
                 $.ajax({

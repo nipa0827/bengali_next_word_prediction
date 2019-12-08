@@ -10,7 +10,7 @@ from time import time
 from keras.models import load_model
 import io
 
-with io.open("C:\\Users\\nipa\\Desktop\\spl\\bengali_next_word_prediction\\plugin\\editor\\word_test.txt", 'r',
+with io.open("C:\\Users\\nipa1\\Desktop\\SPL\\plugin\\editor\\word_test.txt", 'r',
              encoding='utf-8', errors='ignore') as f:
     data = (f.read())
 
@@ -83,6 +83,7 @@ def create_model(predictors, label, max_sequence_len, total_words):
 def generate_text(seed_text, next_words=1):
     # keras.backend.clear_session()
     wordList = []
+
     for _ in range(next_words):
         token_list = tokenizer.texts_to_sequences([seed_text])[0]
         token_list = pad_sequences([token_list], maxlen=max_sequence_len - 1, padding='pre')
@@ -106,5 +107,5 @@ def generate_text(seed_text, next_words=1):
 
 
 predictors, label, max_sequence_len, total_words = dataset_preparation(data)
-model = load_model("C:\\Users\\nipa\\Desktop\\spl\\bengali_next_word_prediction\\plugin\\editor\\test.h5")
+model = load_model("C:\\Users\\nipa1\\Desktop\\SPL\\plugin\\editor\\test.h5")
 print(generate_text("বাংলাদেশ সরকারের হিসাব ।"))

@@ -10,8 +10,6 @@ from django.shortcuts import render_to_response
 from .forms import TextForm
 from django.http import JsonResponse
 import json
-# from .forms import DocumentForm
-# from .models import Document
 import io
 
 # Create your views here.
@@ -110,9 +108,15 @@ def all_text(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
-        resultValue = generate_text(data)
-        res = data
-        filedata = data
+        data = data.replace('&nbsp;', '')
+
+        text = data
+        text = text.replace("। ", "\n")
+
+        text = text.split("\n")
+        text = text[len(text)-1]
+
+        resultValue = generate_text(text)
         first = resultValue[0]
         second = resultValue[1]
         third = resultValue[2]
@@ -120,7 +124,7 @@ def all_text(request):
         fifth = resultValue[4]
 
     with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
-        f.write(data.replace("&nbsp;",''))
+        f.write(data.replace("&nbsp;", ''))
     data = {'first': first, 'second': second,
             'third': third, 'fourth': fourth,
             'fifth': fifth}
@@ -150,7 +154,6 @@ def first_select(request):
         third = resultValue[2]
         fourth = resultValue[3]
         fifth = resultValue[4]
-
 
     with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
         f.write(res.replace('&nbsp;', ''))
@@ -189,7 +192,7 @@ def second_select(request):
             'third': third, 'fourth': fourth,
             'fifth': fifth, 'res': res}
     with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
-        f.write(res.replace("&nbsp;",''))
+        f.write(res.replace("&nbsp;", ''))
 
     return JsonResponse(data)
 
@@ -221,8 +224,8 @@ def third_select(request):
             'third': third, 'fourth': fourth,
             'fifth': fifth, 'res': res}
     with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
-        f.write(res)
-    return JsonResponse(data.replace("&nbsp;",''))
+        f.write(res.replace("&nbsp;", ''))
+    return JsonResponse(data)
 
 
 @csrf_exempt
@@ -254,7 +257,7 @@ def fourth_select(request):
             'fifth': fifth, 'res': res}
 
     with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
-        f.write(res.replace("&nbsp;",''))
+        f.write(res.replace("&nbsp;", ''))
 
     return JsonResponse(data)
 
@@ -287,7 +290,7 @@ def fifth_select(request):
             'fifth': fifth, 'res': res}
 
     with io.open("data.txt", 'w', encoding='utf-8', errors='ignore') as f:
-        f.write(res.replace("&nbsp;",''))
+        f.write(res.replace("&nbsp;", ''))
 
     return JsonResponse(data)
 
@@ -316,3 +319,29 @@ def showText(request):
 
 def about(request):
     return render(request, 'about.html')
+
+
+def text_preprocess(text):
+    letter = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-,?:1‘234567890{}[]’১২৩৪৫৬৭৮৯০."
+    with io.open('stop_word.txt', "r", encoding="utf-8") as file:
+        filedata = file.read()
+
+    text = text.replace("। ", "\n")
+
+    data = filedata.split("\n")
+
+    # remove all number
+    text = ''.join(i for i in text if not i.isdigit())
+
+    # remove bracket
+    text = text.replace("(", "")
+    text = text.replace(")", "")
+    for word in data:
+        text = text.replace(" " + word + " ", " ")
+
+    text = re.sub(r'\n+', '\n', text).strip()
+
+    text = [char for char in text if char not in letter]
+    text = ''.join(text)
+
+    return text
