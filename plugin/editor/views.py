@@ -111,10 +111,10 @@ def all_text(request):
         data = data.replace('&nbsp;', '')
 
         text = data
-        text = text.replace("। ", "\n")
+        #text = text.replace("। ", "\n")
 
-        text = text.split("\n")
-        text = text[len(text)-1]
+        #text = text.split("\n")
+        #text = text[len(text)-1]
 
         resultValue = generate_text(text)
         first = resultValue[0]
