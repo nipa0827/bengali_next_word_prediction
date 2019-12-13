@@ -142,15 +142,11 @@ def first_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
+        fft = (request.POST['first'])
         data = data.replace('&nbsp;', ' ')
         data = data.replace('&amp;', ' ')
 
-        text = data
-
-        text = text.split("। ")
-        text = text[len(text) - 1]
-        resultValue = generate_text(text)
-        res = data + " " + resultValue[0]
+        res = data + " " + fft
 
         text = res
 
@@ -186,15 +182,11 @@ def second_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
+        scnd = (request.POST['scnd'])
         data = data.replace('&nbsp;', ' ')
         data = data.replace('&amp;', ' ')
 
-        text = data
-
-        text = text.split("। ")
-        text = text[len(text) - 1]
-        resultValue = generate_text(text)
-        res = data + " " + resultValue[1]
+        res = data + " " + scnd
 
         text = res
 
@@ -232,15 +224,11 @@ def third_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
+        trd = (request.POST['trd'])
         data = data.replace('&nbsp;', ' ')
         data = data.replace('&amp;', ' ')
 
-        text = data
-
-        text = text.split("। ")
-        text = text[len(text) - 1]
-        resultValue = generate_text(text)
-        res = data + " " + resultValue[2]
+        res = data + " " + trd
 
         text = res
 
@@ -276,15 +264,11 @@ def fourth_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
+        fft = (request.POST['fft'])
         data = data.replace('&nbsp;', ' ')
         data = data.replace('&amp;', ' ')
 
-        text = data
-
-        text = text.split("। ")
-        text = text[len(text) - 1]
-        resultValue = generate_text(text)
-        res = data + " " + resultValue[3]
+        res = data + " " + fft
 
         text = res
 
@@ -321,15 +305,11 @@ def fifth_select(request):
     res = ""
     if request.method == 'POST':
         data = (request.POST['text'])
+        fth = (request.POST['fth'])
         data = data.replace('&nbsp;', ' ')
         data = data.replace('&amp;', ' ')
 
-        text = data
-
-        text = text.split("। ")
-        text = text[len(text) - 1]
-        resultValue = generate_text(text)
-        res = data + " " + resultValue[4]
+        res = data + " " + fth
 
         text = res
 

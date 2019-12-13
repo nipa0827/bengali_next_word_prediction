@@ -78,23 +78,23 @@
             <div class="list-group list-group-flush">
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         id="first">
-                    1. {{ first }}
+                    আমাদের {{ first }}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         , id="second">
-                    2. {{ second }}
+                    সরকার {{ second }}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         , id="third">
-                    3. {{ third }}
+                    যুক্তরাষ্ট্রের {{ third }}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         id="fourth">
-                    4. {{ fourth }}
+                    বাবা {{ fourth }}
                 </button>
                 <button style="background-color: #f8f9fa; color: black; text-align: center; padding: 5px; border-bottom: 1px"
                         id="fifth">
-                    5. {{ fifth }}
+                    আমি {{ fifth }}
                 </button>
             </div>
         </div>
@@ -130,10 +130,11 @@
 
             $("#first").click(function () {
                 $text = $("#text").html();
+                $fft = $("#first").html();
                 $.ajax({
                     type: "POST",
                     url: "{% url 'first_select' %}",
-                    data: {"text": $text},
+                    data: {"text": $text, "first": $fft},
                     success: function (result) {
                         $('#first').html(result['first']);
                         $('#second').html(result['second']);
@@ -149,10 +150,11 @@
 
             $("#second").click(function () {
                 $text = $("#text").html();
+                $scnd = $("#second").html();
                 $.ajax({
                     type: "POST",
                     url: "{% url 'second_select' %}",
-                    data: {"text": $text},
+                    data: {"text": $text, "scnd": $scnd},
                     success: function (result) {
                         $('#first').html(result['first']);
                         $('#second').html(result['second']);
@@ -167,10 +169,11 @@
             });
             $("#third").click(function () {
                 $text = $("#text").html();
+                $trd = $("#third").html();
                 $.ajax({
                     type: "POST",
                     url: "{% url 'third_select' %}",
-                    data: {"text": $text},
+                    data: {"text": $text, "trd": $trd},
                     success: function (result) {
                         $('#first').html(result['first']);
                         $('#second').html(result['second']);
@@ -185,10 +188,11 @@
             });
             $("#fourth").click(function () {
                 $text = $("#text").html();
+                $fft =  $("#fourth").html();
                 $.ajax({
                     type: "POST",
                     url: "{% url 'fourth_select' %}",
-                    data: {"text": $text},
+                    data: {"text": $text, "fft":$fft},
                     success: function (result) {
                         $('#first').html(result['first']);
                         $('#second').html(result['second']);
@@ -203,10 +207,11 @@
             });
             $("#fifth").click(function () {
                 $text = $("#text").html();
+                $fth = $("#fifth").html();
                 $.ajax({
                     type: "POST",
                     url: "{% url 'fifth_select' %}",
-                    data: {"text": $text},
+                    data: {"text": $text, "fth":$fth},
                     success: function (result) {
                         $('#first').html(result['first']);
                         $('#second').html(result['second']);

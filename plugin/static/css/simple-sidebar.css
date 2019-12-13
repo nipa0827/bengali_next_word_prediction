@@ -39,7 +39,7 @@ body {
     border: 1px solid gray;
     font: medium -moz-fixed;
     font: -webkit-small-control;
-    height: 100px;
+    height: 400px;
     overflow: auto;
     padding: 2px;
     resize: vertical;
